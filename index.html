@@ -165,6 +165,31 @@
   .fact h3 { font-size: 24px; font-weight: 500; }
   .fact p { color: var(--muted-on-light); margin-top: 4px; font-size: 15px; }
 
+  /* Space / gallery */
+  .space { background: var(--ink-2); padding: 120px 0; }
+  .space-head { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; }
+  .space-head .lead { margin-top: 0; }
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 300px; gap: 16px; margin-top: 56px; }
+  .g { position: relative; margin: 0; overflow: hidden; background: var(--ink-3); isolation: isolate; }
+  .g-wide { grid-column: span 2; }
+  .g-tall { grid-row: span 2; }
+  .g img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.82) sepia(0.14) contrast(1.02); transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s ease; }
+  .g::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(20,18,15,0.12) 0%, rgba(20,18,15,0.28) 50%, rgba(20,18,15,0.8) 100%);
+    transition: opacity .5s ease;
+  }
+  .g::before { content: ""; position: absolute; inset: 0; z-index: 1; box-shadow: inset 0 0 0 1px rgba(230,207,152,0.14); pointer-events: none; transition: box-shadow .4s ease; }
+  .g:hover img { transform: scale(1.05); filter: saturate(0.95) sepia(0.08) contrast(1.02); }
+  .g:hover::after { opacity: 0.75; }
+  .g:hover::before { box-shadow: inset 0 0 0 1px rgba(201,164,92,0.6); }
+  .g figcaption {
+    position: absolute; left: 24px; right: 24px; bottom: 22px; z-index: 2;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 500; color: var(--gold-light);
+  }
+  .g figcaption::before { content: ""; width: 22px; height: 1px; background: var(--gold); flex: 0 0 auto; }
+
   /* Services */
   .services { padding: 120px 0; background: var(--ink); position: relative; }
   .services-head { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end; }
@@ -287,8 +312,10 @@
   @media (max-width: 960px) {
     .intro .wrap, .info .wrap { grid-template-columns: 1fr; gap: 56px; }
     .cat-grid, .team-grid { grid-template-columns: repeat(2, 1fr); }
-    .services-head, .reviews-head { grid-template-columns: 1fr; align-items: start; }
+    .services-head, .reviews-head, .space-head { grid-template-columns: 1fr; align-items: start; }
     .menu { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 260px; }
+    .g-tall { grid-row: span 1; }
   }
   @media (max-width: 720px) {
     .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(20,18,15,0.97); flex-direction: column; gap: 0; padding: 12px 24px 24px; border-bottom: 1px solid var(--rule-dark); }
@@ -305,7 +332,9 @@
     .review { flex-basis: 300px; padding: 30px 26px; }
     .review-quote { font-size: 22px; }
     .track { animation-duration: 36s; }
-    .intro, .services, .team, .reviews, .info { padding: 80px 0; }
+    .intro, .services, .team, .reviews, .info, .space { padding: 80px 0; }
+    .gallery { grid-template-columns: 1fr; grid-auto-rows: 240px; gap: 12px; }
+    .g-wide { grid-column: span 1; }
     .contact-row { grid-template-columns: 1fr; gap: 6px; }
     .score-num { font-size: 72px; }
   }
@@ -327,6 +356,7 @@
       <span class="brand-sub">Beauty Studio</span>
     </a>
     <nav class="nav-links" id="navLinks" aria-label="Principal">
+      <a href="#espacio">El espacio</a>
       <a href="#servicios">Servicios</a>
       <a href="#equipo">Equipo</a>
       <a href="#opiniones">Opiniones</a>
@@ -394,6 +424,24 @@
         <div><h3>A 4 minutos del metro</h3><p>Muy cerca de la parada Barrio del Pilar, en la calle de la Villa de Marín, 1.</p></div>
       </li>
     </ul>
+  </div>
+</section>
+
+<section class="space" id="espacio">
+  <div class="wrap">
+    <div class="space-head">
+      <div>
+        <span class="eyebrow">El espacio</span>
+        <h2 class="section-title">Luz, calma y <em>cuidado al detalle</em></h2>
+      </div>
+      <p class="lead">Arcos iluminados, sillones de pedicura, puestos de manicura con lámpara propia y un ambiente pensado para que desconectes desde que entras.</p>
+    </div>
+    <div class="gallery">
+      <figure class="g g-wide"><img src="images/salon-pedicura.jpg" alt="Zona de pedicura con sillones y arcos iluminados"><figcaption>Zona de pedicura</figcaption></figure>
+      <figure class="g g-tall"><img src="images/salon-manicura.jpg" alt="Puestos de manicura con lámparas y mesas blancas"><figcaption>Puestos de manicura</figcaption></figure>
+      <figure class="g"><img src="images/esmalte-nude.jpg" alt="Esmalte de uñas en tono nude"><figcaption>Tonos nude y semipermanente</figcaption></figure>
+      <figure class="g"><img src="images/herramientas.jpg" alt="Limas, tijeras y material de manicura sobre madera"><figcaption>Material esterilizado</figcaption></figure>
+    </div>
   </div>
 </section>
 
@@ -620,6 +668,7 @@
   <div class="wrap">
     <span class="brand-name"><span class="n">N</span>IKO’S</span>
     <nav aria-label="Pie de página">
+      <a href="#espacio">El espacio</a>
       <a href="#servicios">Servicios</a>
       <a href="#equipo">Equipo</a>
       <a href="#opiniones">Opiniones</a>
